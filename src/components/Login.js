@@ -18,20 +18,22 @@ export default function Login(props) {
 
     const tryLogin = async (e) => {
         e.preventDefault()
+
         if (!username || !password) {
             setFailedLogin(true)
             !username ? setEmptyUserBox(true) : setEmptyUserBox(false)
             !password ? setEmptyPasswordBox(true) : setEmptyPasswordBox(false)
         } else {
+
             try {
-                axios.get(`http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user/${username}`)
+                axios.post("http://localhost:8080/login", {
+                    username,
+                    password
+                })
                     .then(res => {
-                        const userCheck = res.data
-                        if (userCheck && userCheck.username && userCheck.password === password) {
-                            props.login(userCheck);
+                        if (res.data) {
+                            props.login(res.data)
                             navigate('/')
-                        } else {
-                            setFailedLogin(true)
                         }
                     })
             } catch (err) {
