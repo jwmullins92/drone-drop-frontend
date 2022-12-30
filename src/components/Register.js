@@ -109,7 +109,7 @@ export default function Register(props) {
     if (loading) {
         return (
             <div className="d-flex justify-content-center pt-5">
-                <div className="card col-12 col-md-6 col-lg-3 mt-5 card-color-light">
+                <div className="card col-12 col-md-6 col-lg-3 mt-5 card-color-md primary-border">
                     <div className="card-body d-flex flex-column">
                         <h5 className="card-title card-text text-center fw-bold">Sign up for Drone Drop Delivery</h5>
                         {!validForm &&

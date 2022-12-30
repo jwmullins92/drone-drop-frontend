@@ -37,6 +37,10 @@ code {
   background-color: #D6E4E5 !important;
 }
 
+.card-color-dark {
+  background-color: #497174 !important
+}
+
 .card-text {
   color: #497174 !important;
 }
@@ -50,16 +54,31 @@ code {
 }
 
 .nav-logo {
-  color: #D6E4E5 !important;
+  color: #EFF5F5 !important;
 }
 
 .button-color {
   background-color: #497174 !important;
   border-color: #497174 !important;
+  transition: background-color 2s;
+}
+
+.button-color:hover {
+  background-color: #314c4e !important;
+  border-color: #314c4e !important;
 }
 
 .button-link-color {
   color: #EB6440 !important;
+  transition: color 2s;
+}
+
+.button-link-color:hover {
+  color: #a04228 !important;
+}
+
+.primary-border {
+    border: 1.5px solid #497174 !important;
 }
 
 .map-container {
@@ -68,5 +87,5 @@ code {
   top: 56px;
   z-index: 3;
   
-  border-bottom: 3px solid white;;
+  border-bottom: 2px solid #497174 ;;
 }

@@ -6,11 +6,7 @@ import mapboxgl from 'mapbox-gl'
 
 export default function UserMap(props) {
 
-    const [showPopup, setShowPopup] = React.useState(false);
     const [users, setUsers] = React.useState(props.allUsers);
-
-    const map = useRef(null);
-    const mapContainer = useRef(null)
 
     const navigate = useNavigate()
 
@@ -20,21 +16,6 @@ export default function UserMap(props) {
         zoom: 7,
         attributionControl: false,
     });
-
-    // useEffect(() => {
-    //     if (map.current) return; // initialize map only once
-    //     console.log("setting map")
-    //     map.current = new mapboxgl.Map({
-    //         center: [props.user.longitude, props.user.latitude],
-    //         zoom: 7,
-    //         attributionControl: false,
-    //         container: mapContainer.current,
-    //         style: 'mapbox://styles/mapbox/streets-v12',
-    //     });
-    //     for (let user of users) {
-    //         new mapboxgl.Marker().setLngLat([user.longitude, user.latitude]).addTo(map.current)
-    //     }
-    // });
 
     const handleMarkerClick = (user) => {
         navigate('/profile', { state: { user: user } })
@@ -69,7 +50,6 @@ export default function UserMap(props) {
                     return <UserCard key={user.username} user={user} changeView={changeView} />
                 })}
             </div>
-            {/* <div ref={mapContainer} className="map-container" /> */}
         </div>
 
 

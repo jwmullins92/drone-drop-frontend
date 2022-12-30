@@ -42,15 +42,15 @@ export default function Login(props) {
 
     return (
         <div className="d-flex justify-content-center align-items mt-5">
-            <div className="card col-12 col-lg-4 mt-4">
+            <div className="card col-12 col-lg-4 mt-4 primary-border">
                 {/* <img src="https://images.unsplash.com/photo-1527977966376-1c8408f9f108?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" className="card-img-top" /> */}
-                <div className="card-body d-flex flex-column card-color-light">
+                <div className="card-body d-flex flex-column card-color-md">
                     {failedLogin && <div className="alert alert-danger alert-dismissible fade show" role="alert">
                         Incorrect username or password
                         <button onClick={(e) => setFailedLogin(false)} type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>}
-                    <h5 className="fs-2 mb-3 card-title card-color-light card-text text-center">Login to Drone Drop Delivery</h5>
-                    <form className="border border-light py-2 px-3 d-flex flex-column" onSubmit={tryLogin}>
+                    <h5 className="fs-2 mb-3 card-title card-text text-center">Login to Drone Drop Delivery</h5>
+                    <form className="py-2 px-3 d-flex flex-column" onSubmit={tryLogin}>
                         <div className="my-3">
                             <input onChange={(e) => { setUsername(e.target.value); setEmptyUserBox(false) }}
                                 type="text"
