@@ -23,13 +23,15 @@ function App() {
   const [allUsers, setAllUsers] = useState()
   const [foundSession, setFoundSession] = useState(false);
 
-  useMemo(() => {
+  useEffect(() => {
     axios.get("http://localhost:8080/login")
       .then(res => {
         console.log(res)
-        if (res.data.loggedin) {
-          setLoggedIn(true)
+        if (res.data.loggedIn) {
+          console.log("FOuND")
           setCurrentUser(res.data.user)
+          setLoggedIn(true)
+          console.log(loggedIn)
         }
       })
   }, [])
@@ -82,8 +84,11 @@ function App() {
   }
 
   const logout = () => {
-    setLoggedIn(false)
-    setCurrentUser(null)
+    axios.delete("http://localhost:8080/logout")
+      .then(res => {
+        setLoggedIn(false)
+        setCurrentUser(null)
+      })
   }
 
   return (
@@ -96,7 +101,7 @@ function App() {
         <Route path="register" element={<Register addUser={addUser} allUsers={allUsers} logout={logout} loginNewUser={getUser} />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App;
