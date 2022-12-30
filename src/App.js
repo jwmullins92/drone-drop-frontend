@@ -24,6 +24,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [allUsers, setAllUsers] = useState()
 
+  let path = window.localStorage.getItem('path')
+  let location = JSON.parse(path)
 
 
   useEffect(() => {
@@ -101,9 +103,9 @@ function App() {
       <Navbar isLoggedIn={loggedIn} user={currentUser} logout={logout} />
       <Routes>
         <Route path="/" element={loggedIn ? <Home user={currentUser} allUsers={allUsers} /> : <Navigate to="/login" />} />
-        <Route path="profile" element={loggedIn ? <Profile user={currentUser} allUsers={allUsers} /> : <Navigate to="/login" />} />
-        <Route path="login" element={!loggedIn ? <Login loggedIn={loggedIn} login={login} /> : <Navigate to='/' />} />
-        <Route path="register" element={!loggedIn ? <Register addUser={addUser} allUsers={allUsers} logout={logout} loginNewUser={getUser} /> : <Navigate to='/' />} />
+        <Route path="profile" element={loggedIn ? <Profile user={currentUser} loggedIn={loggedIn} allUsers={allUsers} /> : <Navigate to="/login" />} />
+        <Route path="login" element={!loggedIn ? <Login loggedIn={loggedIn} login={login} /> : <Navigate to={location} />} />
+        <Route path="register" element={!loggedIn ? <Register addUser={addUser} allUsers={allUsers} logout={logout} loginNewUser={getUser} /> : <Navigate to={location} />} />
       </Routes>
     </BrowserRouter>
   );

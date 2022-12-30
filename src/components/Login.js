@@ -14,10 +14,6 @@ export default function Login(props) {
 
     const navigate = useNavigate();
 
-    // if (props.loggedIn) {
-    //     navigate('/')
-    // }
-
     const goToRegister = () => {
         navigate('/register')
     }

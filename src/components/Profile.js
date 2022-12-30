@@ -4,12 +4,31 @@ import MapVerifier from './MapVerifier'
 
 export default function Profile(props) {
 
-
+    const [loading, setLoading] = useState(true);
     const location = useLocation()
 
+    useEffect(() => {
+        if (props.user) {
+            setLoading(false)
+        }
+    }, [props.user])
 
 
-    const { user } = location.state.user.username ? location.state : props
+    useEffect(() => {
+        window.localStorage.setItem('path', JSON.stringify(location.pathname))
+    })
+
+    let { user } = props
+
+    if (location.state) {
+        user = location.state.user
+    }
+
+    if (loading) {
+        return (
+            <h1>LOADING...</h1>
+        )
+    }
 
     return (
         <div>

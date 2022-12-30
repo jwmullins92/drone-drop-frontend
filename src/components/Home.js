@@ -14,6 +14,10 @@ export default function Home(props) {
         }
     }, [props.allUsers])
 
+    useEffect(() => {
+        window.localStorage.setItem('path', JSON.stringify(location.pathname))
+    })
+
 
     if (loading) {
         return (
