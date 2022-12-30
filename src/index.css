@@ -1,13 +1,72 @@
 body {
   margin: 0;
+  min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #497174 !important */
+  background: radial-gradient(circle at 18.7% 37.8%, rgb(250, 250, 250) 0%, rgb(225, 234, 238) 90%) !important;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.card-color-light {
+  background-color: #EFF5F5 !important;
+}
+
+.light-color {
+  color: #EFF5F5;
+}
+
+.nav-border-color {
+  border-color: #D6E4E5;
+}
+
+
+.middle-height {
+  min-height: 40vh;
+}
+
+.card-color-md {
+  background-color: #D6E4E5 !important;
+}
+
+.card-text {
+  color: #497174 !important;
+}
+
+.fullscreen {
+  min-height: 100vh !important;
+}
+
+.nav-color {
+  background-color: #EB6440;
+}
+
+.nav-logo {
+  color: #D6E4E5 !important;
+}
+
+.button-color {
+  background-color: #497174 !important;
+  border-color: #497174 !important;
+}
+
+.button-link-color {
+  color: #EB6440 !important;
+}
+
+.map-container {
+  height: 50vh;
+  position: sticky;
+  top: 56px;
+  z-index: 3;
+  
+  border-bottom: 3px solid white;;
 }
