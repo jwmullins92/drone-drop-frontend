@@ -34,7 +34,7 @@ export default function Register(props) {
     const retryRegister = () => {
         props.logout()
         try {
-            axios.delete(`http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user/${username}`)
+            fetch(`http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user/${username}`, { method: 'DELETE' })
                 .then(
                     setLoading(true)
                 )
@@ -50,15 +50,17 @@ export default function Register(props) {
 
         if (username && password && firstName && lastName && address) {
             try {
-                const response = axios.get(geoLocatorUrl)
+                const response = fetch(geoLocatorUrl)
+                    .then(response => response.json())
                     .then(res => {
-                        if (res.data.features.length) {
-                            const longitude = res.data.features[0].center[0]
-                            const latitude = res.data.features[0].center[1]
+                        console.log(res)
+                        if (res.features.length) {
+                            const longitude = res.features[0].center[0]
+                            const latitude = res.features[0].center[1]
                             const user = {
                                 username,
                                 password,
-                                address: res.data.features[0].place_name,
+                                address: res.features[0].place_name,
                                 firstName,
                                 lastName,
                                 longitude,
@@ -75,16 +77,6 @@ export default function Register(props) {
                         } else {
                             setNoAddressFound(true);
                         }
-
-
-                        // axios.get(`http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user/${username}`)
-                        //     .then(res => {
-                        //         if (!res.data) {
-
-                        //         } else {
-
-                        //         }
-                        //     })
 
                     })
 

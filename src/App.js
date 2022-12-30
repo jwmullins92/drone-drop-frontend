@@ -16,12 +16,15 @@ import axios from 'axios'
 
 axios.defaults.withCredentials = true
 
+
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiandtdWxsaW5zOTIiLCJhIjoiY2tveWZoNHVxMGpjNTJvazhjaDNudzJkeSJ9.GfoztZX0qS6i1xHHfnvhrA';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null)
   const [allUsers, setAllUsers] = useState()
-  const [foundSession, setFoundSession] = useState(false);
+
+
 
   useEffect(() => {
     axios.get("http://localhost:8080/login")
@@ -35,10 +38,10 @@ function App() {
         }
       })
   }, [])
-
   useEffect(() => {
     const getAllUsers = async () => {
       try {
+        console.log("getting users")
         const response = await fetch(
           `http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/users`
         )
@@ -83,6 +86,8 @@ function App() {
     setAllUsers(newAllUsers)
   }
 
+
+
   const logout = () => {
     axios.delete("http://localhost:8080/logout")
       .then(res => {
@@ -97,11 +102,11 @@ function App() {
       <Routes>
         <Route path="/" element={loggedIn ? <Home user={currentUser} allUsers={allUsers} /> : <Navigate to="/login" />} />
         <Route path="profile" element={loggedIn ? <Profile user={currentUser} allUsers={allUsers} /> : <Navigate to="/login" />} />
-        <Route path="login" element={<Login login={login} />} />
-        <Route path="register" element={<Register addUser={addUser} allUsers={allUsers} logout={logout} loginNewUser={getUser} />} />
+        <Route path="login" element={!loggedIn ? <Login loggedIn={loggedIn} login={login} /> : <Navigate to='/' />} />
+        <Route path="register" element={!loggedIn ? <Register addUser={addUser} allUsers={allUsers} logout={logout} loginNewUser={getUser} /> : <Navigate to='/' />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;

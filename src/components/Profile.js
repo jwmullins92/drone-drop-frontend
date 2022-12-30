@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import MapVerifier from './MapVerifier'
 
 export default function Profile(props) {
 
+
     const location = useLocation()
 
-    let user = location.state.user.username ? location.state.user : props.user;
+
+
+    const { user } = location.state.user.username ? location.state : props
 
     return (
         <div>

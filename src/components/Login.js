@@ -4,6 +4,8 @@ import axios from 'axios';
 
 export default function Login(props) {
 
+
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [failedLogin, setFailedLogin] = useState(false)
@@ -11,6 +13,10 @@ export default function Login(props) {
     const [emptyPasswordBox, setEmptyPasswordBox] = useState(false)
 
     const navigate = useNavigate();
+
+    // if (props.loggedIn) {
+    //     navigate('/')
+    // }
 
     const goToRegister = () => {
         navigate('/register')
@@ -26,13 +32,17 @@ export default function Login(props) {
         } else {
 
             try {
-                axios.post("http://localhost:8080/login", {
-                    username,
-                    password
+                const body = { username, password }
+                console.log(JSON.stringify(body))
+                fetch("http://localhost:8080/login", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
                 })
+                    .then(response => response.json())
                     .then(res => {
-                        if (res.data) {
-                            props.login(res.data)
+                        if (res) {
+                            props.login(res)
                             navigate('/')
                         }
                     })

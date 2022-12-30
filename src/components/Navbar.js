@@ -13,6 +13,7 @@ export default function Navbar(props) {
 
     const logout = (e) => {
         e.preventDefault()
+        navigate("/login")
         props.logout();
     }
 
