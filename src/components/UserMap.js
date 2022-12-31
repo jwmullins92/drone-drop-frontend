@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import Map, { Marker, MapRef } from 'react-map-gl';
+import ReactMapGL, { Marker, MapRef } from 'react-map-gl';
 import { useNavigate } from 'react-router';
 import UserCard from './UserCard'
-import mapboxgl from 'mapbox-gl'
 
 export default function UserMap(props) {
 
@@ -18,7 +17,7 @@ export default function UserMap(props) {
     });
 
     const handleMarkerClick = (user) => {
-        navigate('/profile', { state: { user: user } })
+        navigate('/profile/' + user.username, { state: { user: user } })
     }
 
     const changeView = (longitude, latitude) => {
@@ -35,7 +34,7 @@ export default function UserMap(props) {
     return (
         <div>
             <div className="map-container mb-2">
-                <Map
+                <ReactMapGL
                     {...viewState}
                     onMove={evt => setViewState(evt.viewState)}
                     mapStyle="mapbox://styles/mapbox/streets-v12"
@@ -43,7 +42,7 @@ export default function UserMap(props) {
                     {users && users.map(user => {
                         return <Marker onClick={() => handleMarkerClick(user)} key={user.username} longitude={user.longitude} latitude={user.latitude} anchor="center" />
                     })}
-                </Map>
+                </ReactMapGL>
             </div>
             <div className="d-flex flex-column align-items-center">
                 {users && users.map(user => {

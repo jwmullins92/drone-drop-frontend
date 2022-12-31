@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
 import axios from 'axios'
+import NotFound from './components/NotFound'
 
 axios.defaults.withCredentials = true
 
@@ -29,7 +30,7 @@ function App() {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/login")
+    axios.get("http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/login")
       .then(res => {
         console.log(res)
         if (res.data.loggedIn) {
@@ -66,7 +67,7 @@ function App() {
   const getUser = async (user) => {
     const { username, password, firstName, lastName, address, longitude, latitude } = user;
     try {
-      const response = axios.post('http://localhost:8080/user', {
+      const response = axios.post('http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user', {
         username,
         password,
         firstName,
@@ -91,7 +92,7 @@ function App() {
 
 
   const logout = () => {
-    axios.delete("http://localhost:8080/logout")
+    axios.delete("http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/logout")
       .then(res => {
         setLoggedIn(false)
         setCurrentUser(null)
@@ -103,9 +104,10 @@ function App() {
       <Navbar isLoggedIn={loggedIn} user={currentUser} logout={logout} />
       <Routes>
         <Route path="/" element={loggedIn ? <Home user={currentUser} allUsers={allUsers} /> : <Navigate to="/login" />} />
-        <Route path="profile" element={loggedIn ? <Profile user={currentUser} loggedIn={loggedIn} allUsers={allUsers} /> : <Navigate to="/login" />} />
+        <Route path="profile/:username" element={loggedIn ? <Profile user={currentUser} loggedIn={loggedIn} allUsers={allUsers} /> : <Navigate to="/login" />} />
         <Route path="login" element={!loggedIn ? <Login loggedIn={loggedIn} login={login} /> : <Navigate to={location} />} />
         <Route path="register" element={!loggedIn ? <Register addUser={addUser} allUsers={allUsers} logout={logout} loginNewUser={getUser} /> : <Navigate to={location} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

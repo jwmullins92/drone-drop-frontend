@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 import MapVerifier from './MapVerifier'
 
 export default function Profile(props) {
@@ -7,22 +7,26 @@ export default function Profile(props) {
     const [loading, setLoading] = useState(true);
     const location = useLocation()
 
+
+    let user = props.user
+
+    let { username } = useParams()
+
+    if (!loading) {
+        user = props.allUsers.find(u => u.username === username)
+        console.log(user)
+    }
+
     useEffect(() => {
-        if (props.user) {
+        if (props.allUsers) {
             setLoading(false)
         }
-    }, [props.user])
+    }, [props.allUsers])
 
 
     useEffect(() => {
         window.localStorage.setItem('path', JSON.stringify(location.pathname))
-    })
-
-    let { user } = props
-
-    if (location.state) {
-        user = location.state.user
-    }
+    }, [])
 
     if (loading) {
         return (

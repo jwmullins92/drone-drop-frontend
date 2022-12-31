@@ -19,7 +19,7 @@ export default function Navbar(props) {
 
     const goToProfile = (e) => {
         e.preventDefault()
-        navigate("/profile", { state: { user: props.user } })
+        navigate(`/profile/${props.user.username}`, { state: { user: props.user } })
     }
 
     if (!props.isLoggedIn) {

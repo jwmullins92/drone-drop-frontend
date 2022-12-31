@@ -30,7 +30,7 @@ export default function Login(props) {
             try {
                 const body = { username, password }
                 console.log(JSON.stringify(body))
-                fetch("http://localhost:8080/login", {
+                fetch("http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/login", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)
