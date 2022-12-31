@@ -22,8 +22,9 @@ export default function Register(props) {
     const [emptyLastNameBox, setEmptyLastNameBox] = useState(false)
     const [emptyAddressBox, setEmptyAddressBox] = useState(false)
 
-    const geoLocatorUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=pk.eyJ1IjoiandtdWxsaW5zOTIiLCJhIjoiY2tveWZoNHVxMGpjNTJvazhjaDNudzJkeSJ9.GfoztZX0qS6i1xHHfnvhrA&autocomplete=true`
+    const geoLocatorUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}&autocomplete=true`
 
+    console.log(process.env.REACT_APP_MAPBOX_TOKEN)
 
     const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ export default function Register(props) {
     const retryRegister = () => {
         props.logout()
         try {
-            fetch(`http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user/${username}`, { method: 'DELETE' })
+            fetch(process.env.REACT_APP_BACKEND + `/user/${username}`, { method: 'DELETE' })
                 .then(
                     setLoading(true)
                 )

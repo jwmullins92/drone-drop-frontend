@@ -19,7 +19,7 @@ axios.defaults.withCredentials = true
 
 
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiandtdWxsaW5zOTIiLCJhIjoiY2tveWZoNHVxMGpjNTJvazhjaDNudzJkeSJ9.GfoztZX0qS6i1xHHfnvhrA';
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null)
@@ -28,9 +28,8 @@ function App() {
   let path = window.localStorage.getItem('path')
   let location = JSON.parse(path)
 
-
   useEffect(() => {
-    axios.get("http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/login")
+    axios.get(process.env.REACT_APP_BACKEND + "/login")
       .then(res => {
         console.log(res)
         if (res.data.loggedIn) {
@@ -41,12 +40,13 @@ function App() {
         }
       })
   }, [])
+
   useEffect(() => {
     const getAllUsers = async () => {
       try {
         console.log("getting users")
         const response = await fetch(
-          `http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/users`
+          process.env.REACT_APP_BACKEND + `/users`
         )
         let users = await response.json();
         setAllUsers(users)
@@ -67,7 +67,7 @@ function App() {
   const getUser = async (user) => {
     const { username, password, firstName, lastName, address, longitude, latitude } = user;
     try {
-      const response = axios.post('http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/user', {
+      const response = axios.post(process.env.REACT_APP_BACKEND + '/user', {
         username,
         password,
         firstName,
@@ -92,7 +92,7 @@ function App() {
 
 
   const logout = () => {
-    axios.delete("http://dronedropexpress-env.eba-mzvmnh8d.us-east-1.elasticbeanstalk.com/logout")
+    axios.delete(process.env.REACT_APP_BACKEND + "/logout")
       .then(res => {
         setLoggedIn(false)
         setCurrentUser(null)
